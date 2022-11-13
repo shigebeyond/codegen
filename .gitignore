@@ -1,0 +1,12 @@
+jkmvc.iml
+.idea/
+build/
+target/
+.gradle
+gradlew*
+gradle/
+*.log
+out/
+upload/
+logs/
+tmp/

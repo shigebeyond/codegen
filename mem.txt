@@ -1,0 +1,5 @@
+1. 引入idea project中，发现project structure中jphp引用找不到jar，直接手动修改
+/home/shi/.gradle/caches/modules-2/files-2.1/org.develnext.jphp/jphp-json-ext/0.9.2/9a9aab28d096453bd4fa0235c6f67d699ca2877a/jphp-json-ext-0.9.2.jar
+/home/shi/.gradle/caches/modules-2/files-2.1/org.develnext.jphp/jphp-zend-ext/0.9.2/6d7e8c8ad5c48c1bb743785d2a55b3e68f367a78/jphp-zend-ext-0.9.2.jar
+/home/shi/.gradle/caches/modules-2/files-2.1/org.develnext.jphp/jphp-core/0.9.2/d285e9055cb274004456fd3e1c1bfee384f1a437/jphp-core-0.9.2.jar
+/home/shi/.gradle/caches/modules-2/files-2.1/org.develnext.jphp/jphp-runtime/0.9.2/744f1d6cbf382f1da3e3de792a14d1066df853fe/jphp-runtime-0.9.2.jar

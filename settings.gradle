@@ -1,0 +1,31 @@
+rootProject.name = 'codegen'
+
+// 添加jkmvc子项目
+if(env == 'dev') {
+	include 'jkutil'
+	project(':jkutil').projectDir = new File('../jkutil')
+
+	// 应用守护
+	include 'jkguard'
+	project(':jkguard').projectDir = new File('../jkguard')
+
+	// jphp
+	include 'jphp-java-ext'
+	project(':jphp-java-ext').projectDir = new File('../jphp-java-ext')
+
+	// 任务调度
+	include 'jkjob'
+	project(':jkjob').projectDir = new File('../jkjob')
+
+	include 'jkmvc-orm'
+	project(':jkmvc-orm').projectDir = new File('../jkmvc/jkmvc-orm')
+
+	include 'jkmvc-http'
+	project(':jkmvc-http').projectDir = new File('../jkmvc/jkmvc-http')
+
+	include 'jkmvc-server-jetty'
+	project(':jkmvc-server-jetty').projectDir = new File('../jkmvc/jkmvc-server-jetty')
+
+	include 'jkmvc-tag'
+	project(':jkmvc-tag').projectDir = new File('../jkmvc/jkmvc-tag')
+}
