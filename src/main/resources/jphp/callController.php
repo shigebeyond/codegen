@@ -61,6 +61,18 @@ if(!class_exists('php\jkmvc\http\IController', FALSE)) // 检查controller基类
                 ob_end_clean();
             }
         }
+
+        /**
+         * 转发请求，并返回响应
+         *    因为是异步处理, 因此在action方法最后一行必须返回该函数的返回值
+         * @param $url
+         * @param $useHeaders 是否使用请求头
+         * @param $useCookies 是否使用cookie
+         * @return 异步响应
+         */
+        function transferAndReturn($url, $useHeaders = false, $useCookies = false){
+            return $this->req->transferAndReturn($url, $this->res, $useHeaders, $useCookies);
+        }
     }
 
 // 引入controller文件
@@ -86,5 +98,6 @@ HttpRequest::setCurrentByController($controller);
 
 // 5 调用action方法
 $id = $req->param('id');
-// $controller->$action($id);
-HttpRequest::guardInvoke($controller, $action, [$id]);
+// 需return, 有可能返回值是 CompleteFuture, 而外部调用方需要
+// return $controller->$action($id);
+return HttpRequest::guardInvoke($controller, $action, [$id]);
