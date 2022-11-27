@@ -7,5 +7,5 @@ default:
     id: '[^/?]+'
   # 默认参数值 | default param
   defaults:
-    controller: tenant
+    controller: $home
     action: index
