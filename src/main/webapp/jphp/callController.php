@@ -3,6 +3,7 @@ namespace php\jkmvc\http; // 定义 IController 类时需要
 define('APPPATH', dirname(__FILE__)); // 应用目录
 define('CONTROLLERPATH', APPPATH . '/controller/'); // 应用目录
 define('VIEWPATH', APPPATH . '/view/'); // 应用目录
+define('CODEPATH', dirname(APPPATH) . '/code/'); // 生成代码的目录
 
 // TODO: 为了优化性能, 可适当减少判断的代码, 如判断文件/类/方法存不存在, 以便减少php代码, 压榨点性能; 这样最后包一层try, 然后转化下对用户友好的异常
 
@@ -55,8 +56,9 @@ if(!class_exists('php\jkmvc\http\IController', FALSE)) // 检查controller基类
                 $content = ob_get_contents();
                 if($is_return)
                     return $content;
-                else // 响应输出
-                    $this->res->write($content);
+
+                // 响应输出
+                $this->res->write($content);
             }
             finally
             {
@@ -66,11 +68,17 @@ if(!class_exists('php\jkmvc\http\IController', FALSE)) // 检查controller基类
         }
     }
 
+include CONTROLLERPATH . 'BaseController.php';
+
 // 引入controller文件
 $controller = ucfirst($req->controller());
 $file = CONTROLLERPATH . $controller . '.php';
-if(!file_exists($file)) // 检查controller文件
+if(!file_exists($file)){ // 检查controller文件
+    if($controller == 'Appgen' or $controller == 'Phpgen'){
+        die("暂未开源, 敬请期待");
+    }
     throw new \Exception("$404[Controller file not exists: $controller]");
+}
 
 include $file;
 
@@ -81,7 +89,7 @@ $action = $req->action();
 if (!method_exists($controller, $action)) // 检查action方法
     throw new \Exception("$404[Controller {$controller} has no method: {$action}()]");
 
-include APPPATH."/helper.php";
+include APPPATH.'/helper.php';
 
 // 3 实例化controller
 $controller = new $controller($req, $res);
@@ -91,5 +99,6 @@ HttpRequest::setCurrentByController($controller);
 
 // 5 调用action方法
 $id = $req->param('id');
+// 需return, 有可能返回值是 CompleteFuture, 而外部调用方需要
 // return $controller->$action($id);
 return HttpRequest::guardInvoke($controller, $action, [$id]);

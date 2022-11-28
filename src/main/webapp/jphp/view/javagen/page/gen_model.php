@@ -37,49 +37,9 @@
         var form = layui.form;
         var laydate = layui.laydate;
         var laytpl = layui.laytpl;
-        var myaql_data_type = <?=json_encode(array_values($data_type))?>;
-        var option = '';
-        for (var i = 0; i < myaql_data_type.length; i++) {
-            option += '<option value="' + myaql_data_type[i] + '">' + myaql_data_type[i] + '</option>';
-        }
-        form.render();
-        //新增字段
-        $('#add_btn').on('click',function (){
-            var count = $('#tbody').children().length;
-            var html = '<tr>'+
-                '<td><input type="text" name="name" lay-verify="required" placeholder="字段名" class="layui-input"></td>'+
-                '<td><select name="type" lay-verify="required" class="field_type">'+
-                '<option value="">请选择</option>'+
-                option +
-                '</select>'+
-                '</td>'+
-                '<td><input type="text" name="default" value="0" placeholder="默认值" class="layui-input"></td>'+
-                '<td><input type="text" name="comment" lay-verify="required" placeholder="字段描述" class="layui-input"></td>'+
-                '<td><input type="checkbox" name="is_null" value="NOT NULL" lay-skin="primary" checked="checked"></td>'+
-                '<td><input type="checkbox" name="key" value="AUTO_INCREMENT" lay-skin="primary"></td>'+
-                '<td><button type="button" class="layui-btn layui-btn-danger layui-btn-sm">删除</button><i class="layui-icon layui-icon-upload-circle"></i><i class="layui-icon layui-icon-download-circle"></i></td>'+
-                '</tr>';
-            $('#tbody').append(html);
-            $('.layui-btn-sm').on('click',function () {//重新绑定点击事件
-                $(this).parent().parent().remove();
-            });
-            form.render();//重新渲染
-        });
-
-        //删除字段
-        $('.layui-btn-sm').on('click',function () {
-            $(this).parent().parent().remove();
-        });
-
-        //检测表名是否存在
-        $('#check_tablename').on('click',function (){
-            var table_name = $('#table_name').val();
-            window.location = '/$javagen/gen_model/'+table_name;
-        });
 
         //监听修改案例提交
         form.on('submit(generate)', function (data) {
-            debugger;
             $.ajax({
                 url: '/$javagen/create_model',
                 //data: data.field,

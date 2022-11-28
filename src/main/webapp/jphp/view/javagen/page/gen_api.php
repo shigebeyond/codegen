@@ -106,7 +106,7 @@
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.code == 200) {
+                    if (data.code == 0) {
                         var str = '';
                         $.each(data.data, function (id, obj) {
                             str += '<tr>' +
