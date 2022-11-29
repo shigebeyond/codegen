@@ -133,7 +133,7 @@
         //检测表名是否存在
         $('#check_tablename').on('click',function (){
             var table_name = $('#table_name').val();
-            window.location = '/$tablegen/codegen_table/'+table_name;
+            window.location = '/$tablegen/gen_table/'+table_name;
         });
 
         //监听修改案例提交
